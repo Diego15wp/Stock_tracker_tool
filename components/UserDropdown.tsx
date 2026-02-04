@@ -18,13 +18,13 @@ import {useRouter} from "next/navigation";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {LogOut} from "lucide-react";
 import NavItems from "@/components/NavItems";
-const UserDropdown = () => {
+import {signOut} from "@/lib/actions/auth.actions";
+const UserDropdown = ({user}: {user:User}) => {
     const router = useRouter();
-    const handleSignOut = () => {
+    const handleSignOut = async () => {
+        await signOut();
         router.push("/sign-in")
     }
-    const user = {name: 'John', email: 'contact@jsmastery.com'};
-
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -63,7 +63,7 @@ const UserDropdown = () => {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-gray-600"/>
                 <DropdownMenuItem onClick={handleSignOut} className="text-gray-100 text-md font-medium focus:bg-transparent focus-text-yellow-500 transition-colors cursor-pointer">
-                    <LogOut className="h-4 w-4 mr-2 hidden sm:block"/>LogOut
+                    <LogOut className="h-4 w-4 mr-2 hidden sm:block"/>Log Out
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="hidden sm:block bg-gray-600"/>
                 <nav className="sm:hidden">
