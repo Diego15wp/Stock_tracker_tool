@@ -3,7 +3,10 @@
 import { getDateRange, validateArticle, formatArticle } from '@/lib/utils';
 
 const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';
-const NEXT_PUBLIC_FINNHUB_API_KEY = process.env.NEXT_PUBLIC_FINNHUB_API_KEY || '';
+const token = process.env.NEXT_PUBLIC_FINNHUB_API_KEY || '';
+if (!token){
+    throw new Error('FINNHUB API key is not configured');
+}
 
 export const fetchJSON = async (url: string, revalidateSeconds?: number) => {
   const fetchOptions: RequestInit = revalidateSeconds
@@ -29,7 +32,7 @@ export const getNews = async (symbols?: string[]) => {
       let round = 0;
       while (articles.length < maxArticles && round < 6) {
         const symbol = cleaned[round % cleaned.length];
-        const url = `${FINNHUB_BASE_URL}/company-news?symbol=${encodeURIComponent(symbol)}&from=${from}&to=${to}&token=${NEXT_PUBLIC_FINNHUB_API_KEY}`;
+        const url = `${FINNHUB_BASE_URL}/company-news?symbol=${encodeURIComponent(symbol)}&from=${from}&to=${to}&token=${token}`;
         const data = await fetchJSON(url);
         if (Array.isArray(data) && data.length > 0) {
           const valid = data.find((a: RawNewsArticle) => validateArticle(a) && !articles.some((ex) => ex.url === a.url));
@@ -48,7 +51,7 @@ export const getNews = async (symbols?: string[]) => {
     }
 
     // No symbols: fetch general market news
-    const url = `${FINNHUB_BASE_URL}/news?category=general&token=${NEXT_PUBLIC_FINNHUB_API_KEY}`;
+    const url = `${FINNHUB_BASE_URL}/news?category=general&token=${token}`;
     const data = await fetchJSON(url);
     if (!Array.isArray(data)) return [];
 
