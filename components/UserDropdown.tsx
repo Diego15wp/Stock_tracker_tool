@@ -3,15 +3,9 @@ import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuPortal,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {useRouter} from "next/navigation";
@@ -19,7 +13,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {LogOut} from "lucide-react";
 import NavItems from "@/components/NavItems";
 import {signOut} from "@/lib/actions/auth.actions";
-const UserDropdown = ({user}: {user:User}) => {
+const UserDropdown = ({user, initialStocks}: {user:User, initialStocks:StockWithWatchlistStatus[]}) => {
     const router = useRouter();
     const handleSignOut = async () => {
         await signOut();
@@ -67,7 +61,7 @@ const UserDropdown = ({user}: {user:User}) => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="hidden sm:block bg-gray-600"/>
                 <nav className="sm:hidden">
-                    <NavItems/>
+                    <NavItems initialStocks={initialStocks}/>
 
                 </nav>
             </DropdownMenuContent>
