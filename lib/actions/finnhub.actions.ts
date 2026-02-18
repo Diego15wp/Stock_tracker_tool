@@ -3,7 +3,6 @@
 import { getDateRange, validateArticle, formatArticle } from '@/lib/utils';
 import { cache } from 'react';
 import { POPULAR_STOCK_SYMBOLS } from '@/lib/constants';
-
 // Minimal types used by searchStocks
 type FinnhubSearchResult = {
   symbol: string;
@@ -15,14 +14,6 @@ type FinnhubSearchResult = {
 
 type FinnhubSearchResponse = {
   result: FinnhubSearchResult[];
-};
-
-type StockWithWatchlistStatus = {
-  symbol: string;
-  name?: string;
-  exchange: string;
-  type: string;
-  isInWatchlist: boolean;
 };
 
 const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';

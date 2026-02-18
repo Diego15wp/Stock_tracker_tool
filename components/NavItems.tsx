@@ -4,7 +4,7 @@ import Link from "next/link";
 import {usePathname} from "next/dist/client/components/navigation";
 import SearchCommand from "@/components/SearchCommand"
 
-const NavItems = ({initialStocks} : {initialstocks:StockWithWatchlistStatus[]}) => {
+const NavItems = ({initialStocks} : {initialStocks:StockWithWatchlistStatus[]}) => {
     const pathname = usePathname()
 
     const isActive = (path:string)=> {
